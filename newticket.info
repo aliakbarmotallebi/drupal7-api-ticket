@@ -1,0 +1,11 @@
+name = New Ticket
+
+description = This is a new ticketing form
+
+core = 7.x
+
+package = new ticket
+
+stylesheets[all][] = templates/styleslm.css
+
+configure = admin/config/system/tikect
