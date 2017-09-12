@@ -1,0 +1,41 @@
+ $schema['fileoperator'] = array(
+    'description' => t('Stores information about ticket.'),
+       'fields' => array(
+	      'id' => array(
+	        'description' => t('The primary identifier for a ticket.'),
+	        'type' => 'serial',
+	        'unsigned' => TRUE,
+	        'not null' => TRUE,
+	      ),
+	      'urlex' => array(
+	        'description' => t('Url file send by operator'),
+	        'type' => 'varchar',
+	        'length' => 255,
+	      ),
+		  'filename' => array(
+	        'description' => t('Name file stored and view for user '),
+	        'type' => 'varchar',
+	        'length' => 255,
+	      ),
+		  'trackingcode' => array(
+	        'description' => t('trackingcode for ticket'),
+	        'type' => 'varchar',
+	        'length' => 255,
+	      ),
+		  'create' => array(
+	        'description' => t('Date record file in system'),
+	        'type' => 'varchar',
+	        'length' => 255,
+	      ),
+    ),
+    'primary key' => array('id'),
+  );
+  
+  
+  $image = file_get_contents('http://botmarketing.ir/sites/all/themes/bootstrap/img/logo.png'); 
+
+$destination = "public://file/file-".time().".png";
+
+$file = file_save_data($image, $destination);
+
+var_dump($file);

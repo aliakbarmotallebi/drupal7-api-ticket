@@ -1,0 +1,84 @@
+<?php
+
+/**
+* Implementation of hook_schema().
+*/
+
+function newticket_schema() {
+  $schema['urlticket'] = array(
+    'description' => t('Stores information about ticket.'),
+    'fields' => array(
+	      'id' => array(
+	        'description' => t('The primary identifier for a ticket.'),
+	        'type' => 'serial',
+	        'unsigned' => TRUE,
+	        'not null' => TRUE,
+	      ),
+	      'url' => array(
+	        'description' => t('Url Web Service Ticket'),
+	        'type' => 'varchar',
+	        'length' => 255,
+	        'not null' => TRUE,
+	        'default' => 'http://site.com'
+	      ),
+    ),
+    'primary key' => array('id'),
+  );
+  
+   $schema['ftpticket'] = array(
+    'description' => t('Stores information about ticket.'),
+    'fields' => array(
+	      'id' => array(
+	        'description' => t('The primary identifier for a ticket.'),
+	        'type' => 'serial',
+	        'unsigned' => TRUE,
+	        'not null' => TRUE,
+	      ),
+	      'host' => array(
+	        'description' => t('host'),
+	        'type' => 'varchar',
+	        'length' => 255,
+	        'not null' => TRUE,
+	      ),
+	      'username' => array(
+	        'description' => t('Username ftp'),
+	        'type' => 'varchar',
+	        'length' => 255,
+	        'not null' => TRUE,
+	      ),
+	      'password' => array(
+	        'description' => t('Password ftp'),
+	        'type' => 'varchar',
+	        'length' => 255,
+	        'not null' => TRUE,
+	      ),
+	      'path' => array(
+	        'description' => t('Path ftp'),
+	        'type' => 'varchar',
+	        'length' => 255,
+	        'not null' => TRUE,
+	      ),
+    ),
+    'primary key' => array('id'),
+  );
+  
+  return $schema;
+}
+
+
+ function newticket_install() {
+  db_insert('urlticket')
+    ->fields(array(
+      'url' => 'http://mysite.com',
+    ))
+    ->execute();
+    
+  db_insert('ftpticket')
+    ->fields(array(
+      'host' => 'ftp.mysite.com',
+      'username' => 'root',
+      'password' => 'root',
+      'path' => 'http://example.com/dowloand/',
+    ))
+    ->execute();
+}

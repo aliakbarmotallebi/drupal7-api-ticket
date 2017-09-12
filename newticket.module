@@ -1,0 +1,115 @@
+<?php 
+
+
+/**
+ * Implements hook_permission().
+ */
+function newticket_permission() {
+  return array(
+    'access newticket' => array(
+      'title' => t('Access for ticket'),
+    )
+  );
+}
+
+/**
+ * Implements hook_menu()
+ */
+function newticket_menu(){
+
+	$items['ticket/createticket']= array(
+		'title' => 'ارسال تیکت',
+		'description' => 'ثبت تیکت (ارسال درخواست) ',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('ticket_form'),
+		'access arguments' =>array('access newticket'),
+		'file' => 'newticket.inc',
+		);
+
+	$items['ticket/showtickets']= array(
+		'title' => 'لیست تیکت ها',
+		'description' => 'بررسی سابقه تیکت ها',
+		'page callback' => 'tickets_list',
+		'access arguments' =>array('access newticket'),
+		'file' => 'newticket.inc',
+		);
+
+	$items['ticket/showticket/%']= array(
+		'title' => 'تاریخچه تیکت شما',
+		'page callback' => 'ticket_chat',
+		'page arguments' => array(2),
+		'access arguments' =>array('access newticket'),
+		'file' => 'newticket.inc',
+		);
+   
+    $items['admin/config/system/tikect']= array(
+		'title' => 'پیکربندی تیکت',
+        'description' => 'Web service configuration module ticket',
+		'page callback' => 'drupal_get_form',
+		'page arguments' => array('config_form'),
+		'file' => 'newticket.inc',
+        'access arguments' => array('access newticket'),
+        'weight' => 0,
+    );
+  
+    $items['admin/config/system/tikect/webservice'] = array(
+        'title' => 'وب سرویس',
+        'type' => MENU_DEFAULT_LOCAL_TASK,
+    );
+  
+    $items['admin/config/system/tikect/ftp'] = array(
+        'title' => 'اف تی پی',
+        'type' => MENU_LOCAL_TASK,
+        'weight' => 1,
+        'priority' => 1,
+        'page callback' => 'drupal_get_form',
+		'page arguments' => array('ftp_config_form'),
+		'access arguments' =>array('access newticket'),
+		'file' => 'newticket.inc',
+      );
+      
+  
+  return $items;
+}
+
+function newticket_theme()
+{
+  return array(
+    'newticket' => array(
+      'template' => 'newticket',
+      'path' => drupal_get_path('module', 'newTicket') . '/templates')
+    );
+  
+}
+
+function ftp_server($file,$remote_file) {
+
+	$result = db_select('ftpticket', 'ft')
+       ->fields('ft')
+       ->execute()
+       ->fetch();
+
+	$conn_id = ftp_connect($result->host); 
+	$login_result = ftp_login($conn_id, $result->username, $result->password); 
+	if (ftp_put($conn_id, $remote_file, $file, FTP_BINARY)) { 
+		return true;
+ 	} else { 
+		return false;
+ 	} 
+	ftp_close($conn_id); 
+}
+
+function newticket_init(){
+   global $service_url;
+   $service_url = db_select('urlticket', 'u')
+		->fields('u')
+		->execute()
+		->fetchAssoc();
+	return $service_url;
+ }
+ 
+function newticket_preprocess_newticket(&$vars) {
+
+  $vars['styles'] = drupal_add_css(drupal_get_path('module', 'newticket').'/templates/styleslm.css');
+  
+}
