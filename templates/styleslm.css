@@ -1,0 +1,95 @@
+#ticket-min{
+   direction: rtl;
+   font-weight: 900;
+}
+.ticket-header{
+   background-color: #f3f3f3;
+   display: flex;
+   border: 1px solid #cccccc;
+   margin-bottom: 13px;
+}
+.ticket-header div p{
+   padding: 10px;
+}
+.subject{
+    float: right;
+    width: 50%;
+}
+.tracking-code{
+    float: left;
+    width: 50%;
+}
+.ticket-operator div p{
+   padding: 10px;
+}
+.ticket-name{
+    width: 50%;
+    float: right;
+}
+.ticket-date{
+    width: 50%;
+    float: left;
+}
+.ex-operator{
+    display: flex;
+    padding: 5px;
+    border-bottom: 1px solid #cccccc;
+}
+.ex-clinet{
+    display: flex;
+    padding: 5px;
+    border-bottom: 1px solid #cccccc;
+}
+.ticket-clinet div p{
+   padding: 10px;
+}
+.ticket-clinet{
+    background-color: #f3f3f3;
+	border: 1px solid gainsboro;
+	margin-bottom: 10px;
+}
+.ticket-operator{
+	background-color: #F2F9FF;
+	border: 1px solid gainsboro;
+	margin-bottom: 10px;
+  
+}
+/*span{
+	font-weight: 100;
+    padding-right: 3px;
+	white-space: pre-wrap;
+}*/
+.table > thead > tr > th{
+   text-align: right;
+}
+.status-wait{
+    background: red;
+    width: fit-content;
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
+}
+.status-answer{
+    background: #63b374;
+    width: fit-content;
+    color: white;
+    border-radius: 5px;
+    padding: 3px;
+}
+.ticket-name i{
+    float: right;
+    font-size: 2.2em;
+    padding: 2px 7px;
+}
+.ticket-name span{
+    display: block;
+}
+.msg{
+   background-color: white;
+}
+.attachments{
+    background-color: whitesmoke;
+}
+.attachments-ex{
+    background-color: #f2f9ff;
+}
